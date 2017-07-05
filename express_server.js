@@ -15,7 +15,7 @@ var urlDatabase = {
 function generateRandomString() {
     let text = "";
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for(let i = 0; i < length; i++) {
+    for(let i = 0; i < 6; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
@@ -30,6 +30,10 @@ app.get('/urls', (request, response) => {
   response.render('urls_index', templateVars);
 });
 
+app.get("/urls/new", (req, res) => {
+  res.render("urls_new");
+});
+
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id,
                         longURL: urlDatabase[req.params.id]
@@ -37,22 +41,22 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
-app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
-});
 
 app.post("/urls", (req, res) => {
+  const randString = generateRandomString();
+  urlDatabase[randString] = req.body.longURL;
   console.log(req.body);  // debug statement to see POST parameters
   res.send("Ok");         // Respond with 'Ok' (we will replace this)
+  res.redirect(`urls/${randString}`);
 });
 
-app.get("/urls.json",(request, response) => {
-  response.json(urlDatabase);
-});
+// app.get("/urls.json",(request, response) => {
+//   response.json(urlDatabase);
+// });
 
-app.get("/hello", (req, res) => {
-  res.end("<html><body>Hello <b>World</b></body></html>\n");
-});
+// app.get("/hello", (req, res) => {
+//   res.end("<html><body>Hello <b>World</b></body></html>\n");
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
