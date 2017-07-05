@@ -13,6 +13,7 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 }
 
+
 function generateRandomString() {
     let text = "";
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -55,10 +56,16 @@ app.post("/urls/:id/delete", (req, res) => {
   res.redirect("/urls");
 });
 
+app.post("/urls/:id", (request, response) => {
+  urlDatabase[request.params.id] = request.body.longURL;
+  response.redirect("/urls");
+});
+
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
+
 
 app.listen(PORT, () => {
   console.log(`TinyApp server listening on port ${PORT}`);
