@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+
 app.set("view engine", "ejs");
 
 const bodyParser = require("body-parser");
@@ -49,11 +50,16 @@ app.post("/urls", (req, res) => {
   res.redirect(`urls/${randString}`);
 });
 
+app.post("/urls/:id/delete", (req, res) => {
+  delete urlDatabase[req.params.id];
+  res.redirect("/urls");
+});
+
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`TinyApp server listening on port ${PORT}`);
 });
