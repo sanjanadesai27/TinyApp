@@ -46,17 +46,13 @@ app.post("/urls", (req, res) => {
   const randString = generateRandomString();
   urlDatabase[randString] = req.body.longURL;
   console.log(req.body);  // debug statement to see POST parameters
-  res.send("Ok");         // Respond with 'Ok' (we will replace this)
-  //res.redirect(`urls/${randString}`);
+  res.redirect(`urls/${randString}`);
 });
 
-// app.get("/urls.json",(request, response) => {
-//   response.json(urlDatabase);
-// });
-
-// app.get("/hello", (req, res) => {
-//   res.end("<html><body>Hello <b>World</b></body></html>\n");
-// });
+app.get("/u/:shortURL", (req, res) => {
+  let longURL = urlDatabase[req.params.shortURL];
+  res.redirect(longURL);
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
