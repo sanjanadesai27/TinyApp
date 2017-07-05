@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8080;
 app.set("view engine", "ejs");
 
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true})); //this is middleware
 
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
@@ -47,7 +47,7 @@ app.post("/urls", (req, res) => {
   urlDatabase[randString] = req.body.longURL;
   console.log(req.body);  // debug statement to see POST parameters
   res.send("Ok");         // Respond with 'Ok' (we will replace this)
-  res.redirect(`urls/${randString}`);
+  //res.redirect(`urls/${randString}`);
 });
 
 // app.get("/urls.json",(request, response) => {
