@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TinyApp</title>
+</head>
+<body>
+    <% include ../partials/header %>
+    <!-- Add your EJS code here -->
+    <% for(link in urls){ %>
+    <ul><li><%=link%> <%=urls[link]%></li></ul>
+    <%}%>
+    <a href=" ">Shorten new URLS</a>
+</body>
+</html>
