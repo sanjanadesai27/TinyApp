@@ -61,6 +61,11 @@ app.post("/urls/:id", (request, response) => {
   response.redirect("/urls");
 });
 
+app.post("/login", (request,response) => {
+  response.cookie('user', request.body.username);
+  response.redirect("/urls")
+});
+
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
