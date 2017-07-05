@@ -43,7 +43,6 @@ app.get("/urls/:id", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
-
 app.post("/urls", (req, res) => {
   const randString = generateRandomString();
   urlDatabase[randString] = req.body.longURL;
