@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
-
+const cookieParser = require('cookie-parser');
 
 app.set("view engine", "ejs");
 
 const bodyParser = require("body-parser");
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true})); //this is middleware
 
 var urlDatabase = {
@@ -13,6 +14,10 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 }
 
+app.use(function(req, res, next){
+  res.locals.username = req.cookies.username;
+  next();
+});
 
 function generateRandomString() {
     let text = "";
@@ -38,7 +43,7 @@ app.get("/urls/new", (req, res) => {
 
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id,
-                        longURL: urlDatabase[req.params.id]
+                        longURL: urlDatabase[req.params.id],
                      };
   res.render("urls_show", templateVars);
 });
@@ -60,11 +65,20 @@ app.post("/urls/:id", (request, response) => {
   response.redirect("/urls");
 });
 
+app.post("/login", (request,response) => {
+  response.cookie('username', request.body.username);
+  response.redirect("/urls")
+});
+
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
 
+app.post("/logout", (request, response) => {
+  response.clearCookie("username");
+  response.redirect("/urls");
+});
 
 app.listen(PORT, () => {
   console.log(`TinyApp server listening on port ${PORT}`);
