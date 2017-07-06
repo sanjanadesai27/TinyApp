@@ -1,14 +1,8 @@
-<h1> TINYAPP </h1>
-<%if (username) {%>
-<p>You user name is: <%=username%> </p>
+<a href="/register">Register</a>
+<%if (user && user.email) {%>
+<p>Your email is: <%=user.email%> </p>
 <form action="/logout" method="POST"><button>logout</button></form>
 <% } else { %>
-<form action="/login" method="POST">
-<label for="username">Enter your username:</label>
-<input id="username" type="text" name="username" placeholder="e.g. c00lkid" style="width: 300px">
-<input type="submit" value="sign in">
-</form>
+<a href="/login">Login</a>
 <% } %>
-<br>
-<a href="/urls">home</a>
-<br>
+<h1> TINYAPP </h1>
