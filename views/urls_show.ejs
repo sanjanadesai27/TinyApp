@@ -7,7 +7,7 @@
 <body>
     <!-- Add your EJS code here -->
     <% include partials/_header %>
-    <%=`${shortURL} : ${longURL}`%>
+    <a href="/u/<%=shortURL%>"><%=shortURL%></a> : <%=longURL.longURL%>
     <form action="/urls/<%=shortURL%>" method="POST" style="margin:150px;">
       <label for="longURL">Edit long URL:</label>
       <input id="longURL" type="text" name="longURL" placeholder="Enter url here" style="width: 300px">

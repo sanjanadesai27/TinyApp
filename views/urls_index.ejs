@@ -10,9 +10,9 @@
     <% for(link in urls){ %>
     <ul>
       <li>
-        <%=link%> : <%=urls[link]%>
+        <a href="/urls/<%=link%>"><%=link%></a> : <%=urls[link].longURL%>
         <form method="POST" action="/urls/<%=link%>/delete">
-          <input type="submit" text="Delete">
+          <input type="submit" value="Delete">
         </form>
 
       </li>
