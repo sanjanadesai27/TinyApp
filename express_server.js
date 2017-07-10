@@ -150,7 +150,6 @@ app.post("/login", (req,res) => {
       res.redirect("/login");
     }
   }
-  //res.session.user_id = user.id;
 });
 
 app.get("/u/:shortURL", (req, res) => {
